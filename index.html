@@ -1,1122 +1,654 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+<head>
+    <meta charset="utf-8">
 
-		<title>Angular-intro :: Introduction to AngularJS</title>
+    <title>Angular-intro :: Introduction to AngularJS</title>
 
-		<meta name="description" content="introduction to ANgularJS for the Adept/Intermediate at programming">
-		<meta name="author" content="Rhett Lowe">
+    <meta name="description" content="introduction to ANgularJS for the Adept/Intermediate at programming">
+    <meta name="author" content="Rhett Lowe">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
-		<link rel="stylesheet" href="css/slideStyles.css" id="theme-add">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="css/slideStyles.css" id="theme-add">
 
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
-		<script>
-			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
-		</script>
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write('<link rel="stylesheet" href="css/print/' + ( window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">');
+    </script>
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
 
-	<body>
+<body>
 
-		<div class="reveal">
+<div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides" ng-app="slides">
-                <section id="opening">
-                    <section>
-                        <img class="logo" src="images/AngularJS-large.png" />
-                        <h3>More Dynamic - Less Work</h3>
-                    </section>
-                    <section>
-                		<!-- founder -->
-                        <img class="column two" src="images/Misko8.jpg" title="Misko Hevery" alt="Misko Hevery" />
-                        <div class="column two left-align">
-                            <h2>Misko Hevery</h2>
-                            <ul>
-                                <li>Founder</li>
-                                <li>Google Employee</li>
-                                <li>Agile Coach</li>
-                                <li>Automated <br /> Testing Expert</li>
-                            </ul>
-                            <br />
-                            <br />
-                            <ul>
-                                <li><a href="http://misko.hevery.com/about/">Website</a></li>
-                                <li><a href="https://github.com/mhevery">GitHub</a></li>
-                                <li><a href="https://plus.google.com/112540226618013533507/posts">Google+</a></li>
-                                <li><a href="http://stackoverflow.com/users/192810/misko-hevery">Stack Overflow</a></li>
-                                <li><a href="https://twitter.com/mhevery">Twitter</a></li>
-                                <li><a href="http://www.linkedin.com/pub/misko-hevery/0/3b1/388">LinkedIn</a></li>
-                            </ul>
-                        </div>
-                        <aside class="notes" >
-                            <ul>
-                                <li>Originally written as a 20% project to speed up the development time of some google
-                                    internal websites.
-                                </li>
-                                <li>is a testing expert</li>
-                                <li>Teaches unit and end-to-end testing to google employees.</li>
-                            </ul>
-                        </aside>
-                	</section>
-                	<section>
-                		<!-- released -->
-                        <h1>History</h1>
-                        <table>
-                            <tr>
-                                <td>Concept:</td>
-                                <td></td>
-                                <td>2009</td>
-                            </tr>
-                            <tr>
-                                <td>Original Release</td>
-                                <td>0.9.0</td>
-                                <td>Oct 20, 2010</td>
-                            </tr>
-                            <tr>
-                                <td>Most Common</td>
-                                <td>1.0.8</td>
-                                <td>Aug. 22, 2013</td>
-                            </tr>
-                            <tr>
-                                <td>Current Stable</td>
-                                <td>1.2.1</td>
-                                <td>Nov. 14, 2013</td>
-                            </tr>
-                        </table>
-                	</section>
-                    <section>
-                        <h2>Most notable features</h2>
-                        <ul>
-                            <li>Two way binding</li>
-                            <li>End-to-end testing</li>
-                            <li>MVC / MVW</li>
-                            <li>Re-usable Components</li>
-                        </ul>
-                        <ul>
-                            <li>Declarative</li>
-                            <li>Extends HTML</li>
-                            <li>Dependency Injection</li>
-                            <li>Q & Promises/A+</li>
-                        </ul>
-                        <aside class="notes">
-                            <p>These are some of the features Angular is most notable for currently, but they are not
-                                why it was originally written. It was written just to be fast to develop and easily
-                                testable.
-                            </p>
-                        </aside>
-                    </section>
-                    <section>
-                        <!-- Quick blurb about MVC -->
-                        <h2>MVW: Model / View / Whatever</h2>
-                        <aside class="notes">
-                            <p>Now we will review MVC theory and how AngularJS sees MVC</p>
-                        </aside>
-                    </section>
-                </section>
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides" ng-app="slides">
+        <section id="opening">
+            <section>
+                <img class="logo" src="images/AngularJS-large.png"/>
 
-                <section id="the-view">
-                    <section>
-                        <h1>MVC: The View</h1>
-                        <aside class="notes">
-                            <p>The first part to look at is the view in my opinion. AngularJS really looks at the view
-                                differently the most other frameworks out there, esp. jQuery.
-                            </p>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>In AngularJS the View:</h2>
-                        <ul>
-                            <li>Is a First Class Citizen!</li>
-                            <li>Controls where data goes</li>
-                            <li>Controls User-Interactivity</li>
-                            <li>Dictates the Final State of the Data</li>
-                        </ul>
-                        <aside class="notes">
-                            Nothing but what is on the slide
-                        </aside>
-                    </section>
-                    <section class="take-out">
-                        <h2>AngularJS View vs. jQuery View</h2>
-                        <p>
-                            <strong>jQuery:</strong>
-                            HTML/View is an anchor point so jQuery can insert DOM as it sees fit
-                        </p>
-                        <aside class="notes">
-                            <p>We all know jQuery and how it interacts with the DOM. </p>
-                            <ul>
-                                <li>Write an anchor point in the DOM using CSS Selectors, ID, Class and Tag</li>
-                                <li>In jQuery, select the anchor and manipulate it however the JS controller sees fit.</li>
-                                <li>The DOM/View doesn't have any control over what is placed inside</li>
-                                <li>meaning Designers MUST understand JavaScript to fully code a page.</li>
-                            </ul>
-                            <p>In AngularJS</p>
-                            <ul>
-                                <li>The Controller exposes editable points</li>
-                                <li>The DOM/View Uses those points as it sees fit.</li>
-                                <li>The View decides where loops, dynamic titles, and JS Dropdowns go</li>
-                                <li>The Controller allows special functions, but eh view decides when and where they are
-                                    used.
-                                </li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2 ng-non-bindable>Hello {{ who }}</h2>
-                        <div ng-app>
-                            Hello {{ who }}!<br /><br />
-                            <input ng-model="who" type="text"/>
-                        </div>
-                        <aside class="notes">
-                            <p>In this example, I am ONLY using the view. Nothing more nothing less.</p>
-                            <p>I have assigned part of the DOM to listen to a variable named `$scope.who` and an input
-                                to manipulate `$scope.who`
-                            </p>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>How it works</h2>
-                        <pre ng-non-bindable><code data-trim>
-<div ng-app>
-    Hello {{ who }}!<br /><br />
-    <input ng-model="who" type="text"/>
-</div>
-                        </code></pre>
-                        <aside class="notes">
-                            <p>This is the whole code. Notice:</p>
-                            <ul>
-                                <li>ng-app</li>
-                                <li>Template Handlebars `{{ }}`</li>
-                                <li>ng-model</li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Introducing</h2>
-                        <ul>
-                            <li>ng-app</li>
-                            <li ng-non-bindable>{{ expression }}</li>
-                            <li>ng-model</li>
-                            <li>$scope</li>
-                        </ul>
-                        <aside class="notes">
-                            <ul>
-                                <li>ng-app tells AngularJS what ITS DOM elements are so it knows what to work with and
-                                    what to ignore.
-                                </li>
-                                <li>The handlebars tell angular where to bind readable data. Can also do functions,
-                                    math, and ternary statements
-                                </li>
-                                <li>ng-model creates a 2-way link to allow for editing data</li>
-                                <li>Abstraction Layer ==> see next slide</li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2><pre class="inline"><code data-trim>$scope</code></pre></pro></h2>
-                        <ul>
-                            <li>Abstraction Layer</li>
-                            <li>
-                                <pre class="inline"><code data-trim>null</code></pre>
-                                default
-                            </li>
-                            <li>2-way binding</li>
-                        </ul>
-                        <aside class="notes">
-                            <ul>
-                                <li>The `$scope` is an abstraction layer which makes it easier to interact with public
-                                    controller data and functions and utilizes dirty-data-checking
-                                </li>
-                                <li>All uninitialized variables start out as `null`. Null equates to a blank string or a
-                                    zero int
-                                </li>
-                                <li>Because of dirty checking, `$scope` can be set from Controller OR View and be
-                                    reflected everywhere.
-                                </li>
-                            </ul>
-                        </aside>
-                    </section>
-                </section>
+                <h3>Working with ng-Model-Controller</h3>
+            </section>
+            <section>
+                <!-- founder -->
+                <img class="column two" src="images/me.jpg" title="Rhett Lowe" alt="Rhett Lowe"/>
 
-                <section id="the-view-2" ng-app>
-                    <section>
-                        <h1>MVC: The View</h1>
-                        <h2>Part 2</h2>
-                        <aside class="notes">
-                            <p>The view has many more parts to it. Templates and Models are just the beginning.</p>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Hello World</h2>
-                        <div>
-                            List the people you want to say hello to:<br /><br />
-                            <input ng-list ng-model="who" type="text"/> <br />
-                            <ul>
-                                <li ng-repeat="person in who">
-                                    Hello {{person}}!
-                                </li>
-                            </ul>
-                        </div>
-                        <aside class="notes">
-                            <p>AngularJS has built in functions to help simplify changing data types. In this example
-                                we:
-                            </p>
-                            <ul>
-                                <li>transfer a comma separated list to an array of strings in the `$scope`</li>
-                                <li>Have a repeater say hello to each person on the list</li>
-                                <li>Ignore all non names: ex '', ','</li>
-                                <li>Demonstrate Directives</li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>How it works</h2>
-                        <pre ng-non-bindable><code data-trim>
-<div ng-app>
-    List the people you want to say hello to:<br /><br />
-    <input ng-list ng-model="who" type="text"/> <br />
-    <ul>
-        <li ng-repeat="person in who">
-            Hello {{person}}!
-        </li>
-    </ul>
-</div>
-                        </code></pre>
-                        <aside class="notes">
-                            <ul>
-                                <li>ng-list is an example of a directive.</li>
-                                <li>Directives are AngularJS code which modify the normal behavior of a DOM element.
-                                    Often they can have their own scope and can modify the WHOLE look of an element
-                                </li>
-                                <li>
-                                    Notice
-                                    <ul>
-                                        <li>ng-list</li>
-                                        <li>ng-repeat</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Introducing</h2>
-                        <ul>
-                            <li>ng-list</li>
-                            <li>ng-repeat</li>
-                        </ul>
-                        <aside class="notes">
-                            <ul>
-                                <li>Directive ng-list takes in a string of comma separated values, splits, trims,
-                                    reduces, and outputs an array of strings
-                                </li>
-                                <li>Directive ng-repeat automates a for loop tied to the `$scope` for every item added
-                                    to the array or object a new child is created. The same goes for removing objects
-                                </li>
-                                <li>ng-repeat works for arrays AND objects but has different syntax for each.</li>
-                                <li>Arrays are easier to use with ng-repeat</li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>How many is that?</h2>
-                        <p>You said hello to {{ who.length }} people</p>
-                        <p>You said hello to <ng-pluralize count="who.length || 0"
-                                when="{'0': 'nobody?!?!',
-                                        'one': '1 person.',
-                                        'other': '{} people!'}"></ng-pluralize></p>
-                        <input ng-model="who" type="text" ng-list/>
-                        <aside class="notes">
-                            Notice:
-                            <ul>
-                                <li>Counting the people in `$scope.who` array.</li>
-                                <li>Pluralization for 0, 1 and >1</li>
-                                <li>Multiple use of the same variable in the view</li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Great but minor splendors</h2>
-                        <pre ng-non-bindable><code data-trim>
-<p>You said hello to {{ who.length }} people</p>
-<p>
-    You said hello to
-    <ng-pluralize count="who.length || 0" when="{'0': 'nobody?!?!',
-                            'one': '1 person.',
-                            'other': '{} people!'}"></ng-pluralize>
-</p>
-<input ng-model="who" type="text" ng-list/>
-                        </code></pre>
-                        <ul>
-                            <li ng-non-bindable>{{ who.length }}</li>
-                            <li>ngPluralize</li>
-                            <li>Multiple uses of
-                                <pre class="inline"><code data-trim>$scope.who</code></pre>
-                            </li>
-                        </ul>
-                        <aside class="notes">
-                            <ul>
-                                <li>{{ who.length }} is standard javascript for finding # of elements in an array.</li>
-                                <li>ngPluralize is allowing for correct grammar in areas where it is needed. ngPluralize
-                                    also includes advanced functionality
-                                </li>
-                                <li>ngPluralize is also a directive. Notice that directives can be Tags, Attributes,
-                                    Classes or even Comments
-                                </li>
-                                <li>`$scope.who` has been referenced here 3 times. It can be referenced as many times as
-                                    you like pretty much.
-                                </li>
-                                <li>Example of a short-circuit in the wild. This one says who.length, unless who does
-                                    not exist or is not an array, in that case use 0
-                                </li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Trim the fat ...</h2>
-                        <div ng-init="people = [
-                                    {name:'Rhett'},
-                                    {name:'Ali'},
-                                    {name:'Ray'},
-                                    {name:'Maria'},
-                                    {name:'Jannah'},
-                                    {name:'Naz'},
-                                    {name:'David'}
-                                    ]">
-                            Only These people:<br /><br />
-                            <input ng-model="onlyMe" type="text"/><br />
-                            <ul>
-                                <li ng-repeat="person in people | filter:onlyMe">
-                                    Hello {{person.name}}!
-                                </li>
-                            </ul>
-                        </div>
-                        <aside class="notes">
-                            <p>Notice here that anything you type in will limit the output of the repeat. It is using
-                                filters to modify the array before the repeat get it.
-                            </p>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>How it works</h2>
-                        <pre ng-non-bindable><code data-trim>
-<div ng-init="people = [
-        {name:'Rhett'},
-        {name:'Ali'},
-        {name:'Ray'},
-        {name:'Maria'},
-        {name:'Jannah'},
-        {name:'Naz'},
-        {name:'David'}
-        ]">
-    Only These people:<br /><br />
-    <input ng-model="onlyMe" type="text"/><br />
-    <ul>
-        <li ng-repeat="person in people | filter:onlyMe">
-            Hello {{person.name}}!
-        </li>
-    </ul>
-</div>
-                        </code></pre>
-                        <aside class="notes">
-                            <p>Notice</p>
-                            <ul>
-                                <li>ng-init creating the initial list of people</li>
-                                <li>the input is tied to `$scope.onlyMe`</li>
-                                <li>the repeat is followed by `| filter:onlyMe`</li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Introducing</h2>
-                        <ul>
-                            <li>ng-init</li>
-                            <li>
-                                | (pipe)
-                                <ul>
-                                    <li>filter</li>
-                                    <li>currency</li>
-                                    <li>date</li>
-                                    <li>orderBy</li>
-                                    <li>Etc...</li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <aside class="notes">
-                            <p>Notice: </p>
-                            <ul>
-                                <li>ngInit - As soon as angular loads this section of the DOM into memory, it round the
-                                    code in ngInit</li>
-                                <li>Pipe works just like in linux to pass the argument before it into the command after
-                                    it.
-                                    <ul>
-                                        <li>filter will show only matching text</li>
-                                        <li>currency expects a number and outputs currency to your specifications.</li>
-                                        <li>date formats a JS Date object or milliseconds since epoch and formats it how
-                                            you define
-                                        </li>
-                                        <li>orderBy will order by the object attribute you specify in ASC or DESC
-                                            orders
-                                        </li>
-                                        <li>Many many more.</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </aside>
-                    </section>
-                </section>
+                <div class="column two left-align">
+                    <h2>Rhett Lowe</h2>
+                    <br/>
+                    <ul>
+                        <li>Work at i-Showcase, Inc.</li>
+                        <li>AngularJS for 9+ months</li>
+                        <li><a href="https://github.com/rhettl">GitHub</a></li>
+                        <li><a href="https://plus.google.com/+RhettLowe">Google+</a></li>
+                    </ul>
+                </div>
+                <aside class="notes">
+                    <p>this is me. I am not in many places yet and I haven't been on the scene long, but I have been
+                        working hard and learning much.</p>
+                </aside>
+            </section>
+        </section>
 
-
-                <section id="the-view-3">
-                    <section>
-                        <h1>MVC: The View</h1>
-                        <h2>Part 3</h2>
-                        <aside class="notes">
-                            <p>We are nearly done with the view and its powers. But the view can do so much more! By
-                                now I hope you are getting that the view has a lot of power in AngularJS
-                            </p>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Clicks are declarative</h2>
-                        <h3>Counter: {{ counter }}</h3>
-                        <span ng-click="counter = 0">&lt;span&gt;Reset&lt;/span&gt;</span><br />
-                        <a ng-click="counter = counter + 1">&lt;a&gt;+1&lt;/a&gt;</a><br />
-                        <button ng-click="counter = counter + 5">&lt;button&gt;+5&lt;/button&gt;</button>
-                        <aside class="notes">
-                            <p>Notice</p>
-                            <ul>
-                                <li>Functions are called dispite clicking on span, anchor, or button</li>
-                                <li>anchors automatically prevent default</li>
-                                <li>none of this is outside the view</li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>How it works</h2>
-                        <pre ng-non-bindable="$ng-non-bindable$"><code data-trim="$data-trim$">
-<h3>Counter: {{ counter }}</h3>
-<span ng-click="counter = 0">Reset</span><br />
-<a ng-click="counter = counter + 1">+1</a><br />
-<button ng-click="counter = counter + 5">+5</button>
-                        </code></pre>
-                        <aside class="notes">
-                            <p>This is the phone code. </p>
-                            <ol>
-                                <li>A counter is set as `$scope.counter`</li>
-                                <li>two click handlers are set in place to increment the counter</li>
-                                <li>one click event sets it to zero</li>
-                            </ol>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Introducing ng-click</h2>
-                        <ul>
-                            <li>
-                                <pre class="inline"><code>ng-click="myFunc(variable)"</code></pre>
-                            </li>
-                            <li>
-                                <pre class="inline"><code>ng-click="variable = variable + 1"</code></pre>
-                            </li>
-                            <li>
-                                <pre class="inline"><code>ng-click="variable = variable + 1; myFunc(variable)"</code></pre>
-                            </li>
-                        </ul>
-                        <aside class="notes">
-                            <p>ngClick is a directive with many traits. It can:</p>
-                            <ul>
-                                <li>Run a function attached to the `$scope`</li>
-                                <li>Run a direct command operating on elements in the `$scope`</li>
-                                <li>Do Both</li>
-                            </ul>
-                            <p>It also has built in that any anchor or button with ng-click will automatically prevent
-                                default.
-                            </p>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Other directives</h2>
-                        <ul>
-                            <li><a href="http://docs.angularjs.org/api/ng.directive:ngClass">ngClass</a></li>
-                            <li><a href="http://docs.angularjs.org/api/ng.directive:ngShow">ngShow</a>
-                                / <a href="http://docs.angularjs.org/api/ng.directive:ngBlur">ngHide</a>
-                            </li>
-                            <li><a href="http://docs.angularjs.org/api/ng.directive:ngSrc">ngSrc</a></li>
-                            <li><a href="http://docs.angularjs.org/api/ng.directive:ngFocus">ngFocus</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="http://docs.angularjs.org/api/ng.directive:ngHref">ngHref</a></li>
-                            <li><a href="http://docs.angularjs.org/api/ng.directive:ngSwitch">ngSwitch</a></li>
-                            <li><a href="http://docs.angularjs.org/api/ng.directive:ngCloak">ngCloak</a></li>
-                            <li><a href="http://docs.angularjs.org/api/ng.directive:ngBlur">ngBlur</a></li>
-                        </ul>
-                        <aside class="notes">
-                            <p>Here is a list of other directives that are extremely useful to the view.</p>
-                            <ul>
-                                <li>ngClass will turn on 1 or more classes dynamically based on either strings or
-                                    boolean statements
-                                </li>
-                                <li>ngHref will help anchors dynamically link to the right place by altering the href of
-                                    a link according to your template
-                                </li>
-                                <li>ngShow will show a node based on a boolean statement. Hide does the opposite</li>
-                                <li>ngSwitch works almost like a switch case for the view</li>
-                                <li>ngSrc is exactly like ngHref for images</li>
-                                <li>ngCloak hides unwanted elements from view UNTIL angular has loaded.</li>
-                                <li>ngFocus works exactly like ngClick but when someone focuses on an element</li>
-                                <li>ngBlur does the same as ngClick and ngFocus but on blur.</li>
-                            </ul>
-                            <p>There are many more. To read more about these directives and others, click on any of the
-                                directives</p>
-                        </aside>
-                    </section>
-                </section>
-
-
-                <section id="the-controller">
-                    <section>
-                        <h1>MVC: The Controller</h1>
-                        <aside class="notes">
-                            <p>The controller is just as powerful as the View and is as testable, but only if it is used
-                                properly.
-                            </p>
-                            <ul>
-                                <li>AngularJS Controller !== jQuery Code. Don't try to use them the same way.</li>
-                                <li>AngularJS Controller should be used to initialize data and set up function for the
-                                    view.
-                                </li>
-                                <li>Don't try to control the View directly the controller should try to work like an API
-                                    making some things public and leaving some things private
-                                </li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>ng-controller</h2>
-                        <pre ng-non-bindable><code data-trim class="">
-<div ng-app ng-controller="myAppCtrl">
-    {{ variable }}
-    <span ng-click="myFunc('This will appear in an alert')">Click Me</span>
-</div>
-                        </code></pre>
-                        <pre ng-non-bindable><code data-trim class="javascript">
-var myAppCtrl = function($scope){
-    $scope.variable = 'Anything I want';
-    $scope.myFunc = function(text){
-        alert(text);
-    };
-};
-                        </code></pre>
-                        <aside class="notes">
-                            <p>the top is in the view and the bottom is in the controller</p>
-                            <ul>
-                                <li>See the top uses ngController to link this section of code to either a function
-                                    stored in cache as `myAddCtrl` OR a function named myAppCtrl
-                                </li>
-                                <li>`$scope` is a parameter of the controller function</li>
-                                <li>{{ variable }} in the view === `$scope.variable` in the controller</li>
-                                <li>This also demonstrates how variables may be sent back to the controller's functions through the view</li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Controller Structure</h2>
-                        <pre ng-non-bindable><code data-trim class="javascript">
-function myController($scope, $timeout, myFactory){
-    // Variable Instantiation
-    var a, b, c;
-    var obj = {};
-    var fac = new myFactory();
-
-    // Function Instantiation
-    var myFunc = function(text){
-        alert(text);
-    }
-    var initFunc = function(){
-        //do initialization stuff here
-    }
-
-    // Scope Instantiation
-    $scope.myVar = 1;
-    $scope.obj = {name: "test"};
-    $scope.myFunc = myFunc;
-    $scope.round = Math.round;
-    $scope.addAB = function(){
-        $scope.myVar = a + b;
-    }
-
-    // Initiate processes or data with functions
-    initFunc();
-    fac.init();
-
-}
-                        </code></pre>
-                        <aside class="notes">
-                            <p>This is how I like to structure my Controllers.</p>
-                            <ul>
-                                <li>I like to group variables together</li>
-                                <li>group functions together</li>
-                                <li>group scope related declarations together</li>
-                                <li>and always put initialization scripts at the bottom</li>
-                            </ul>
-                            <p>The order isn't all important, but I really prefer instantiation and declaration at top
-                                and function initialization at that bottom.
-                            </p>
-                            <p>Notice</p>
-                            <ul>
-                                <li>I am pulling in more than the scope</li>
-                                <li>`$timeout` is another helper object</li>
-                                <li>i can also pull in models and other data</li>
-                                <li>that order is not important, angular takes care of placing the right objects where
-                                    you ask for them
-                                </li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>NOT JQUERY</h2>
-                        <pre ng-non-bindable><code data-trim class="javascript">
-function myController($scope, $timeout, myFactory){
-    var el = angular.element('#someID');
-    el.find('div').hide();
-}
-                        </code></pre>
-                        <h2>No really don't do this!!</h2>
-                        <aside class="notes">
-                            <p>The controller doesn't work like jQuery. It isn't for writing random code to change the
-                                DOM. Instead use it to allow the DOM/View to make it's own changes.
-                            </p>
-                            <ul>
-                                <li>This code will be impossible to test</li>
-                                <li>disrupt Angular's groove making angular angry</li>
-                                <li>Sometimes the cheating way is to initialize a jQuery object from the controller but
-                                    best recommendation is just don't use jQuery at all. Try to put all DOM manipulation
-                                    in the View or a directive
-                                </li>
-                            </ul>
-                        </aside>
-                    </section>
-                </section>
-
-                <section id="ng-app">
-                    <section>
-                        <h1>The Application</h1>
-                        <h2>Putting it all together</h2>
-                        <aside class="notes">
-                            Lets talk about how an application fits together modularly.
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Creating an application and module</h2>
-                        <pre ng-non-bindable><code data-trim class="html">
-<div ng-app="myApp" ng-controller="myAppCtrl">
-    {{ variable | whatsMyName }}
-    <span ng-click="myFunc('This will appear in an alert')">Click Me</span>
-</div>
-                        </code></pre>
-                        <pre ng-non-bindable><code data-trim class="javascript">
-angular.module('myApp', [])
-    .filter('whatsMyName', [function(){
-        return function(input){
-            return input + " is my name!";
-        }
-    }])
-    .controller('myAppCtrl', ['$scope', function($scope){
-        $scope.variable = 'Anything I want';
-        $scope.myFunc = function(text){
-            alert(text);
-        };
-    }]);
-                        </code></pre>
-                        <aside class="notes">
-                            <p>In this example notice the scafholding for the application.</p>
-                            <ul>
-                                <li>ng-app links the application to the module</li>
-                                <li>ng-controller is still linking the controller to the DOM</li>
-                                <li>we attached a new filter call `whatsMyName` to the application and used it in the
-                                    View
-                                </li>
-                                <li>the `.module('name', requisites)` format. Later in actual examples I'll show you how
-                                    this works
-                                </li>
-                            </ul>
-                        </aside>
-                    </section>
-                </section>
-                <section id="directives">
-                    <section>
-                        <h1>Directives</h1>
-                        <h2>Extending HTML</h2>
-                        <aside class="notes">
-                            <p>Directives are for altering HTML or creating new behaviors in HTML</p>
-                            <p>examples of when one might make a directive</p>
-                            <ul>
-                                <li>Making a spinner input</li>
-                                <li>making a popup box</li>
-                                <li>making custom dropdown menus</li>
-                                <li>Making Popovers</li>
-                                <li>Any place where one migth want a repeatable object that instantiates and de-instantiates itself</li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Spinner object</h2>
-                        <pre ng-non-bindable><code data-trim class="html">
-<input spinner ng-model="count" min="-5" max="5" />
-                        </code></pre>
-                        <pre ng-non-bindable><code data-trim class="javascript">
-angular.module('myApp', []).directive('spinner', [function(){
+        <!--<section>-->
+        <!--<h2>How it works</h2>-->
+        <!--<pre ng-non-bindable><code data-trim>-->
+        <!--<div ng-app>-->
+        <!--Hello {{ who }}!<br /><br />-->
+        <!--<input ng-model="who" type="text"/>-->
+        <!--</div>-->
+        <!--</code></pre>-->
+        <!--<aside class="notes">-->
+        <!--<p>This is the whole code. Notice:</p>-->
+        <!--<ul>-->
+        <!--<li>ng-app</li>-->
+        <!--<li>Template Handlebars `{{ }}`</li>-->
+        <!--<li>ng-model</li>-->
+        <!--</ul>-->
+        <!--</aside>-->
+        <!--</section>-->
+        <!--<pre class="inline"><code data-trim>null</code></pre>-->
+        <section id="directives">
+            <section>
+                <h2>Directives</h2>
+                <ul>
+                    <li class="fragment">Encapsulated</li>
+                    <li class="fragment">DOM Manipulation</li>
+                    <li class="fragment">jQuery Goes Here</li>
+                    <li class="fragment">Create/Clean after itself</li>
+                </ul>
+                <br/>
+                <br/>
+                <h4 class="fragment">Examples</h4>
+                <ul class="fragment">
+                    <li>ngList</li>
+                    <li>ngSrc</li>
+                    <li>ngHref</li>
+                    <li>ngRepeat</li>
+                </ul>
+                <aside class="notes">
+                    <h3>Directives</h3>
+                    <ul>
+                        <li>Should be self enclosed - Preferably no communication in and no communication out</li>
+                        <li>jQuery - If there was a place for jQuery in Angular it is here. This is the best place for
+                            any form of DOM manipulation.
+                        </li>
+                        <li>Directives should be in full control of its own creation and destruction.</li>
+                    </ul>
+                    <p>Directives can be used to modify the DOM, inputs, outputs and much more.</p>
+                </aside>
+            </section>
+            <section>
+                <h2>Normal Usage</h2>
+                <pre ng-non-bindable><code data-trim>
+angular.module('testApp', []).directive('pagination', [function () {
     return {
         restrict: 'A',
         scope: {
-            currentNum: '=ngModel',
-            min: '@?',
-            max: '@?',
-            inc: '=?'
+            span: '=',
+            current: '=',
+            total: '=',
+            nextPrev: '=?',
+            firstLast: '=?',
+            changePage: '&'
         },
+        templateURL: "/partials/paginate.html",
+        link: function(scope, element, attrs) {
+            //Creation and DOM Manipulation data goes here.
+        }
+    };
+}]);
+                </code></pre>
+                <aside class="notes">
+                    <h2>Basic usage of a directive</h2>
+                    <ul>
+                        <li>the angular.directive function to make the directive</li>
+                        <li>Restrict set if the directive is an Attribute, Element, Class or Comment</li>
+                        <li>in the directive you can create a child-scope to better encapsulate data</li>
+                        <li>Template or templateUrl to direct the DOM</li>
+                        <li>Link is the main function that is called to instantiate the new object into memory. It is where you place any events, watchers and manipulation algorithms</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Range Slider</h2>
+                <pre class="inline"><code data-trim><range-slider min="0" max="100" ng-model-low="low" ng-model-high="high"></range-slider></code></pre>
+                <pre ng-non-bindable><code data-trim>
+angular.module('jQueryUI', []).directive('rangeSlider', [function() {
+    var noop = angular.noop;
+
+    return {
+        restrict: "EA",
         replace: true,
-        template:
-            '<div class="spinner">' +
-                '<input ng-model="currentNum" />' +
-                '<span class="plusOne" ng-click="add(inc)">' +
-                    '<i class="chevron-up"></i>' +
-                '</span>' +
-                '<span class="minusOne" ng-click="subtract(inc)">' +
-                    '<i class="chevron-down"></i>' +
-                '</span>' +
-            '</div>',
-        link: function(scope, iElement){
-            if (typeof scope.min === 'undefined'){
-                scope.min = -1000000000000000;
-            }
-            if (typeof scope.max === 'undefined'){
-                scope.max = 1000000000000000;
-            }
-            if (typeof scope.inc === 'undefined'){
-                scope.inc = 1;
-            }
+        template: '<div class="slider"></div>',
+        scope: {
+            step: '@?',
+            min: '@',
+            max: '@',
+            ngModelLow: '=',
+            ngModelHigh: '=',
+            stop: '&?',
+            slide: '&?'
+        },
+        link: function(scope, elem, attrs) {
+            var slider,
+            externalChange = function(){
+                slider.slider('values', [scope.ngModelLow, scope.ngModelHigh]);
+            },
+            setValues = function(values){
+                values = checkLowHigh(values);
+                scope.$apply(function(){
+                    scope.ngModelLow = values[0];
+                    scope.ngModelHigh = values[1];
+                });
+            },
+            checkLowHigh = function(vals){
+                if (typeof vals === 'undefined' || vals.length !== 2)
+                    vals = [min, max];
 
-            scope.add = function(num){
-                var newNum;
-                num = (typeof num === 'undefined' ? 1 : num);
+                var low = vals[0], high = vals[1];
 
-                if (num + scope.currentNum > scope.max){
-                    newNum = scope.max
-                } else {
-                    newNum = num + scope.currentNum;
+                if (high < low){
+                    var temp = high;
+                    high = low; low = temp;
+                    bounceBack = true;
+                }
+                if (low < min) {
+                    low = min;
+                    bounceBack = true;
+                }
+                if (high > max) {
+                    high = max;
+                    bounceBack = true;
                 }
 
-                scope.currentNum = newNum;
+                return [low, high];
             };
-            scope.subtract = function(num){
-                var newNum;
-                num = (typeof num === 'undefined' ? 1 : num);
 
-                if (scope.currentNum - num  < scope.min){
-                    newNum = scope.min
-                } else {
-                    newNum = scope.currentNum - num;
+            scope.stop = scope.stop || noop;
+            scope.slide = scope.slide || noop;
+
+            scope.min = parseFloat(scope.min);
+            scope.max = parseFloat(scope.max);
+
+            scope.step = typeof scope.step !== 'undefined' ? scope.step : 1;
+            scope.ngModelLow = typeof scope.ngModelLow !== 'undefined' ? scope.ngModelLow : scope.min;
+            scope.ngModelHigh = typeof scope.ngModelHigh !== 'undefined' ? scope.ngModelHigh : scope.max;
+
+            slider = elem.slider({
+                animate: true,
+                range: true,
+                step: scope.step,
+                min: scope.min,
+                max: scope.max,
+                values: [scope.ngModelLow, scope.ngModelHigh],
+                slide: function(e, ui){
+                    setValues(ui.values);
+
+                    scope.slide({
+                        values: ui.values,
+                        low: ui.values[0],
+                        high: ui.values[1]
+                    });
+                },
+                stop: function(e, ui){
+                    scope.stop({
+                        values: ui.values,
+                        low: ui.values[0],
+                        high: ui.values[1]
+                    });
+                }
+            });
+
+            scope.$watch('ngModelLow', externalChange);
+            scope.$watch('ngModelHigh', externalChange);
+        }
+    };
+}]);
+                </code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Break it apart</h2>
+                <br />
+                <ui>
+                    <li class="fragment">(Complicated?) Child Scope</li>
+                    <li class="fragment">scope.$watch() - ers</li>
+                </ui>
+                <aside class="notes">
+                    While there are many things to point out in this I would like to mention 2:
+                    <ul>
+                        <li>There is a scope variable. This means it is creating a child scope. This is good and bad</li>
+                        <li>We have to add Watchers to the Link function to listen to external changes</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>(Complicated?) Child Scope</h3>
+                <pre ng-non-bindable><code data-trim>
+angular.module('jQueryUI', []).directive('rangeSlider', [function() {
+    var noop = angular.noop;
+    
+    return {
+        restrict: "EA",
+        scope: {
+            step: '@?',
+            min: '@',
+            max: '@',
+            ngModelLow: '=',
+            ngModelHigh: '=',
+            stop: '&?',
+            slide: '&?'
+        },
+        link: function(scope, elem, attrs) {
+            /*  Linking code Here  */
+        }
+    };
+}]);
+                </code></pre>
+                <aside class="notes">
+                    <h3>Child Scopes</h3>
+                    <h5>Benefits</h5>
+                    <ul>
+                        <li>Easier to understand</li>
+                        <li>Easier to read/write</li>
+                        <li>Encapsulation</li>
+                    </ul>
+                    <br/>
+                    <h5>Detriments</h5>
+                    <ul>
+                        <li>More weight on memory</li>
+                        <li>More weight on processor</li>
+                        <li>Extra layer to Penetrate</li>
+                        <li>More watchers</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h3>scope.$watch() - ers</h3>
+
+                <pre ng-non-bindable><code data-trim>
+slide: function(e, ui){
+    setValues(ui.values);
+
+    scope.slide({
+        values: ui.values,
+        low: ui.values[0],
+        high: ui.values[1]
+    });
+}
+/* ... */
+setValues = function(values){
+    console.log('internal', values);
+    values = checkLowHigh(values);
+    scope.$apply(function(){
+        scope.ngModelLow = values[0];
+        scope.ngModelHigh = values[1];
+    });
+}
+                </code></pre>
+                <pre ng-non-bindable><code data-trim>
+externalChange = function(){
+    console.log('external', [scope.ngModelLow, scope.ngModelHigh]);
+    slider.slider('values', [scope.ngModelLow, scope.ngModelHigh]);
+}
+                </code></pre>
+                <pre ng-non-bindable><code data-trim>
+scope.$watch('ngModelLow', externalChange);
+scope.$watch('ngModelHigh', externalChange);
+                </code></pre>
+                <aside class="notes">
+                    <h3>Watchers and Bouncing</h3>
+                    <ul>
+                        <li>The slider provides a nice way to update the the model</li>
+                        <li>External Changes won't be reflected in the slider unless we watch for them</li>
+                        <li>The Watcher is set to change the Slider</li>
+                        <li>2 Way updating -> slider>>model and model>>slider</li>
+                    </ul>
+                    <br/>
+                    <h3>Problems</h3>
+                    <h5>Slider>>Model</h5>
+                    <ul>
+                        <li>Slider Changes</li>
+                        <li>setValues() is triggered</li>
+                        <li>'internal' is logged</li>
+                    </ul>
+                    <h5>Model>>Slider</h5>
+                    <ul>
+                        <li>Code changes model</li>
+                        <li>Model triggers watcher triggering externalChange()</li>
+                        <li>'external' is logged</li>
+                        <li>Slider updates</li>
+                        <li>setValues() is triggered</li>
+                        <li>'internal' is logged</li>
+                    </ul>
+                    <h5>double update aka bouncing</h5>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Using ng-Model-Controller</h2>
+                <br/>
+                <ul>
+                    <li class="fragment">require: "ngModel"</li>
+                    <li class="fragment">include ngModel in link</li>
+                    <li class="fragment">functions for 2-directional updating</li>
+                    <li class="fragment">Parsers and Formatters</li>
+                    <li class="fragment">$pristine, $error, and other form validations</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li>To start add a require to make sure you get a model to control</li>
+                        <li>add the ngModel to the linking function so ou have something to bind to</li>
+                        <li>ngModel gives you functions to control both directions of updates: i.e. model>>view/slider
+                            and slider/view>>model
+                        </li>
+                        <li>Allows for a stack in both direction, formatters and parsers</li>
+                        <li>Allows for settings like Error, Pristine, Required, Valid, Etc.</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <pre ng-non-bindable><code data-trim>
+angular.module('jQueryUI', []).directive('rangeSlider', [function() {
+    var noop = angular.noop;
+
+    return {
+        restrict: "EA",
+        require: 'ngModel',
+        link: function(scope, elem, attrs, ngModel) {
+            if (!ngModel
+                    || typeof attrs.min === 'undefined'
+                    || typeof attrs.max === 'undefined'){
+                return;
+            }
+
+            var slider, bounceBack = false,
+            step = scope.$eval(attrs.step) || 1,
+            min = scope.$eval(attrs.min),
+            max = scope.$eval(attrs.max),
+            checkLowHigh = function(vals){
+                if (typeof vals === 'undefined' || vals.length !== 2)
+                    vals = [min, max];
+
+                var low = vals[0], high = vals[1];
+
+                if (high < low){
+                    var temp = high;
+                    high = low; low = temp;
+                    bounceBack = true;
+                }
+                if (low < min) {
+                    low = min;
+                    bounceBack = true;
+                }
+                if (high > max) {
+                    high = max;
+                    bounceBack = true;
                 }
 
-                scope.currentNum = newNum;
+                return [low, high];
             };
+
+
+            //ngModel.$parsers.push(checkLowHigh);
+            ngModel.$formatters.push(checkLowHigh);
+
+            slider = elem.slider({
+                animate: true,
+                range: true,
+                step: step,
+                min: min,
+                max: max,
+                values: ngModel.$viewValue,
+                slide: function(e, ui){
+                    scope.$apply(function(){
+                        ngModel.$setViewValue(ui.values);
+                    });
+                },
+                stop: function(e, ui){
+                    scope.$apply(function(){
+                        scope.$eval(attrs.ngStop, {
+                            values: ui.values,
+                            low: ui.values[0],
+                            high: ui.values[1]
+                        });
+                    });
+                }
+            });
+
+            ngModel.$render = function(){
+                if (bounceBack) {
+                    bounceBack = false;
+                    ngModel.$setViewValue(ngModel.$viewValue);
+                }
+                slider.slider('values', ngModel.$viewValue);
+            };
+        }
+    };
+}]);
+                </code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Breaking it apart</h2>
+            </section>
+            <section>
+                <h2>Getting the ng-Model-Controller</h2>
+                <pre ng-non-bindable><code data-trim>
+angular.module('jQueryUI', []).directive('rangeSlider', [function() {
+    var noop = angular.noop;
+
+    return {
+        restrict: "EA",
+        require: 'ngModel',
+        link: function(scope, elem, attrs, ngModel) {
+            if (!ngModel
+                    || typeof attrs.min === 'undefined'
+                    || typeof attrs.max === 'undefined'){
+                return;
+            }
+            /* ... */
         }
     }
 }]);
-                        </code></pre>
-                        <aside class="notes">
-                            <p>First notice:</p>
-                            <ul>
-                                <li>Directives must be in an application/module</li>
-                                <li>Restrict: 'A' will restrict the directive to only work when 'spinner' is an
-                                    attribute as opposed to Element, Class or Comment
-                                </li>
-                                <li>It creates its own child scope and sets some variables by default</li>
-                                <li>The DOM template is loaded here OR using a templateURL</li>
-                                <li>Link is the function runs just after the template is compiled and replaces the 
-                                    original DOm element
-                                </li>
-                                <li>Inside the Link:
-                                    <ul>
-                                        <li>Link function takes in the scope and the container element</li>
-                                        <li>I initialize uninitialized variables</li>
-                                        <li>and add some helper functions that would normally be on the controller</li>
-                                        <li>While I can add a controller to this whole thing, I don't feel the need if
-                                            since my overall work is so small
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <p>We can ise the spinner directive anywhere within the ngApp as name times as we like.</p>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Recommendations and Best practices:</h2>
-                        <ul>
-                            <li>Manipulate the DOM here NOT in Controller</li>
-                            <li>Keep as self enclosed as possible</li>
-                            <li>Directives CAN communicate upwards but life is easier when they don't</li>
-                        </ul>
-                        <aside class="notes">
-                            <ul>
-                                <li>There is nothing wrong with using jQuery or other JavaScript DOM manupulation. It
-                                    should almost all happen here in the directive.
-                                </li>
-                                <li>The more enclosed and encapsulated the easier to test and debug.</li>
-                                <li>Directives can emit events which controllers can listen for, but again they can make testing frustrating</li>
-                                <li>Directives can be as simple or as complicated as you want</li>
-                            </ul>
-                        </aside>
-                    </section>
-                </section>
-                <section id="providers">
-                    <section>
-                        <h1>MVC: The Model</h1>
-                        <h2>Providers</h2>
-                        <aside class="notes">
-                            <p>Providers are the model. There are several types of providers.</p>
-                        </aside>
-                    </section>
-                    <section>
-                        <p>Provider Types</p>
-                        <ul>
-                            <li>Values</li>
-                            <li>Constants</li>
-                            <li>Factories</li>
-                            <li>Services</li>
-                            <li>Providers</li>
-                        </ul>
-                        <aside class="notes">
-                            <p>There are different types of providers that are ment to do different things</p>
-                            <ul>
-                                <li>Values are instantiated after most other objects but before controllers. Singleton</li>
-                                <li>Constants are always the first to be instantiated. They should be objects. Singleton</li>
-                                <li>Factories are instantiated inside of the controller. You can make as many of them as
-                                    you like.
-                                </li>
-                                <li>Services are instantiated before controllers and are Singletons</li>
-                                <li>All of these are providers. When creating any of them, the provider function is
-                                    called and produces the final object.
-                                </li>
-                            </ul>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Factories and Services</h2>
-                        <ul>
-                            <li>Encapsulate</li>
-                            <li>Feel free to put getters, setters and storage inside</li>
-                            <li>Store as little as necessary in services, they are singletons</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <h2>Example of Factory</h2>
-                        <pre ng-non-bindable><code data-trim class="javascript">
-angular.module('myApp', [])
-    .factory('myLogs', ['$http', function($http){
-        var myFact = function(){
-            //init script
-            this.reqUrl = '/includes/assets/scripts/rest/json.php';
-            this.logs = [];
+                </code></pre>
+                <aside class="notes">
+                    <h3>Including the controller</h3>
+                    <ul>
+                        <li>require: "ngModel" throws error if no ngModel</li>
+                        <li>add 4th argument to linking function to give yourself an object for controlling the
+                            ngModelController
+                        </li>
+                        <li>Now you can start adding functions and checking data</li>
+                        <li>I saw this if statement somewhere and liked it. I find that it helps to make dead sure I have all requirements</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>2-directional updating</h2>
+                <img class="logo column two" style="max-height: 550px; width: auto" src="images/modelToView.png"/>
+                <img class="logo column two" style="max-height: 550px; width: auto" src="images/viewToModel.png"/>
+            </section>
+            <section>
+                <h2>2-directional updating</h2>
+                <pre ng-non-bindable><code data-trim>
+slider = elem.slider({
+    /* ... */
+    values: ngModel.$viewValue,
+    slide: function(e, ui){
+        scope.$apply(function(){
+            ngModel.$setViewValue(ui.values);
+        });
+    }
+    /* ... */
+});
+                </code></pre>
+                <pre ng-non-bindable><code data-trim>
+ngModel.$render = function(){
+    /* ... */
 
-            this.query = {
-                func: 'get_logs',
-                args: []
-            }
-        }
-        myFact.prototype.getLogs = function(time){
-            this.query.args = [time];
-            $http.get(this.reqUrl, this.query)
-                .success(function(data){
-                    this.logs = data;
-                }).error(function(){
-                    this.logs = [];
-                    console.log('there is a problem!!');
-                });
-        };
-    }])
-    .controller('myCtrl', ['$scope', 'myLogs', function($scope, myLogs){
-        $scope.fac = new myLogs();
-    }]);
-                        </code></pre>
-                        <pre ng-non-bindable><code data-trim class="html">
-<div ng-app="myApp" ng-controller="myCtrl">
-    <ul>
-        <li ng-repeat="log in fac.logs" ng-bind="log.entry"></li>
-    </ul>
-    <button ng-click="fac.getLogs()">Update</button>
+    slider.slider('values', ngModel.$viewValue);
+};
+                </code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Formatters and Parsers</h2>
+                <p>Modify and/or control the data comming in and going out of the ngModel</p>
+            </section>
+            <section>
+                <img class="logo column two" style="max-height: 650px; width: auto" src="images/modelToView.png"/>
+                <div class="column two">
+                    <h3>Formatters</h3>
+                    <ul>
+                        <li class="fragment">Triggered by $modelValue change</li>
+                        <li class="fragment">Check correctness of data</li>
+                        <li class="fragment">Convert "Data" to "Displayable"</li>
+                        <li class="fragment">Input[n] = Output[n-1]</li>
+                        <li class="fragment">Finalizes with $render()</li>
+                        <li class="fragment">$render is an interface</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <div class="column two">
+                    <h3>Parsers</h3>
+                    <ul>
+                        <li class="fragment">Triggered by $setViewValue()</li>
+                        <li class="fragment">Convert "Displayable" to "Data"</li>
+                        <li class="fragment">Input[n] = Output[n+1]</li>
+                    </ul>
+                </div>
+                <img class="logo column two" style="max-height: 650px; width: auto" src="images/viewToModel.png"/>
+            </section>
+            <section>
+                <h3>Formatting Function</h3>
+                <pre ng-non-bindable><code data-trim>
+var checkLowHigh = function(vals){
+    if (typeof vals === 'undefined' || vals.length !== 2)
+        vals = [min, max];
+
+    var low = vals[0], high = vals[1];
+
+    if (high < low){
+        var temp = high;
+        high = low; low = temp;
+    }
+    if (low < min) {
+        low = min;
+    }
+    if (high > max) {
+        high = max;
+    }
+
+    return [low, high];
+};
+
+//ngModel.$parsers.unshift(checkLowHigh);
+ngModel.$formatters.push(checkLowHigh);
+                </code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Forms Functionality</h2>
+                <ul>
+                    <li class="fragment">$valid / $invalid</li>
+                    <li class="fragment">$pristine / $dirty</li>
+                    <li class="fragment">$error</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Online</h2>
+
+                <p><a href="https://www.github.com/rhettl/ngModelController-slides">github.com/rhettl/ngModelController-slides</a></p>
+            </section>
+        </section>
+    </div>
+
 </div>
-                        </code></pre>
-                        <aside class="notes">
-                            Notice
-                            <ul>
-                                <li>`.factory(name, ['req', function(req){}])</li>
-                                <li>Creating an object for my factory and assigning it functions and variables</li>
-                                <li>Query is self contained `this.query`</li>
-                                <li>logs stay self contained `this.logs`</li>
-                                <li>`myLogs` is fed into the controller as a requirement</li>
-                                <li>a new myLogs is created, because this is a factory not a service</li>
-                                <li>I wanted myLogs to be accessible so I placed it on the scope.</li>
-                                <li>$http is another helper, this one is like the ajax method in jQuery</li>
-                                <li>I am showing all the logs I want in almost no view or controller code.</li>
-                                <li>My factory is fully testable</li>
-                            </ul>
-                        </aside>
-                    </section>
-                </section>
-                <section id="roles">
-                    <section>
-                        <h1>Roles</h1>
-                        <h2>How it is all supposed to work together</h2>
-                        <aside class="notes">
-                            to wrap it all up we have 4 main components, and now I will expain how they are to work 
-                            together to make our lives easier
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>View</h2>
-                        <ul>
-                            <li>Declarative</li>
-                            <li>Powerful</li>
-                            <li>for designers</li>
-                        </ul>
-                        <br />
-                        <br />
-                        <h3>Try to keep it simple</h3>
-                        <p>If it only deals in how things look it belongs in the view. <br />Ex: Simple Pagination</p>
-                        <aside class="notes">
-                            <p>Simple pagination is when it has nothing to do with the model. All results are returned
-                                and the view is just combing through them
-                            </p>
-                            <p>Simple pagination doesn't have anything to do with how the data is returned or what data
-                                is returned so there is little reason to place it in the controller or the model. If it
-                                can cleanly go into the View, put it there.
-                            </p>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Model/Provider</h2>
-                        <ul>
-                            <li>Factory</li>
-                        </ul>
-                        <ul>
-                            <li>Service</li>
-                        </ul>
-                        <p>Most of the time you will deal with these two.</p>
 
-                        <br /><br />
-                        <h3>Separate Concerns</h3>
-                        <p>What belongs in the model is anything pertaining to the fetching, holding, or checking of a
-                            specific type of data<br />There are also more general models</p>
-                        <aside class="notes">
-                            <p>What SHOULD go in the model are things like getters for THAT type of information and it
-                                is fine for the returned information to stay in the model
-                            </p>
-                            <p>The controller Should hold the burden of going the model's dirty work</p>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Controller</h2>
-                        <p>Think of this as:</p>
-                        <ul>
-                            <li>A Data Linking Function</li>
-                            <li>An initiator</li>
-                            <li>Decider of Public/Private</li>
-                        </ul>
-                        <aside class="notes">
-                            <p>The controller is a place to:</p>
-                            <ul>
-                                <li>pull in the tools you need</li>
-                                <li>get them ready for use by the View</li>
-                                <li>direct the incoming and outgoing data to the right homs</li>
-                            </ul>
-                            <p>Don't use it as a place to initialize jQuery or manipulate the DOM</p>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Directives</h2>
-                        <ul>
-                            <li>Manipulate the DOM</li>
-                            <li>Make it seem like HTML learned new tricks</li>
-                            <li>The less communication INTO and OUT FROM the better</li>
-                        </ul>
-                        <aside class="notes">
-                            <p>Ideally, the best directives appear to work without you touching them from the controller
-                                or the view.
-                            </p>
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Modularity</h2>
-                        <p>All elements should be as modular as possible.</p>
-                        <ul>
-                            <li>Model => Multi. Ctrls</li>
-                            <li>Ctrl => Multi. Views</li>
-                            <li>Direct => Multi. Everything</li>
-                            <li>View !=> Multi. Controllers</li>
-                        </ul>
-                        <aside class="notes">
-                            <ul>
-                                <li>Models should ideally work for ANY controller</li>
-                                <li>Controllers should be written so thet don't reference the view at all allowing for
-                                    any view to work with it
-                                </li>
-                                <li>Directives should be written so ANY view can use it</li>
-                                <li>Views will almost never go with another controller. they are too specific.</li>
-                            </ul>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/app/application.js"></script>
 
-                            <h1>GOTO EXAMPLES</h1>
-                        </aside>
-                    </section>
-                </section>
-			</div>
+<script>
 
-		</div>
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
-		<script src="js/angular.min.js"></script>
-		<script src="js/app/application.js"></script>
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
-        <script>
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            } },
+            { src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } }
 
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+        ]
+    });
 
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+</script>
 
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-
-                ]
-			});
-
-		</script>
-
-	</body>
+</body>
 </html>

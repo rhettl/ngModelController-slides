@@ -12,6 +12,10 @@ strong {
     font-weight: bolder;
 }
 
+.reveal pre code {
+    max-height: 600px;
+}
+
 .reveal section input, .reveal section button {
     font-size: 100%;
 }
