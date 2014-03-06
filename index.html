@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Angular-intro :: Introduction to AngularJS</title>
+    <title>ngModelController</title>
 
-    <meta name="description" content="introduction to ANgularJS for the Adept/Intermediate at programming">
+    <meta name="description" content="Introduction to ngModelController">
     <meta name="author" content="Rhett Lowe">
 
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -52,7 +52,7 @@
                     <br/>
                     <ul>
                         <li>Work at i-Showcase, Inc.</li>
-                        <li>AngularJS for 9+ months</li>
+                        <li>AngularJS for 11+ months</li>
                         <li><a href="https://github.com/rhettl">GitHub</a></li>
                         <li><a href="https://plus.google.com/+RhettLowe">Google+</a></li>
                     </ul>
@@ -63,28 +63,10 @@
                 </aside>
             </section>
         </section>
-
-        <!--<section>-->
-        <!--<h2>How it works</h2>-->
-        <!--<pre ng-non-bindable><code data-trim>-->
-        <!--<div ng-app>-->
-        <!--Hello {{ who }}!<br /><br />-->
-        <!--<input ng-model="who" type="text"/>-->
-        <!--</div>-->
-        <!--</code></pre>-->
-        <!--<aside class="notes">-->
-        <!--<p>This is the whole code. Notice:</p>-->
-        <!--<ul>-->
-        <!--<li>ng-app</li>-->
-        <!--<li>Template Handlebars `{{ }}`</li>-->
-        <!--<li>ng-model</li>-->
-        <!--</ul>-->
-        <!--</aside>-->
-        <!--</section>-->
-        <!--<pre class="inline"><code data-trim>null</code></pre>-->
         <section id="directives">
             <section>
                 <h2>Directives</h2>
+                <h4>For those who don't know</h4>
                 <ul>
                     <li class="fragment">Encapsulated</li>
                     <li class="fragment">DOM Manipulation</li>
@@ -96,20 +78,21 @@
                 <h4 class="fragment">Examples</h4>
                 <ul class="fragment">
                     <li>ngList</li>
+                    <li>ngChange</li>
                     <li>ngSrc</li>
-                    <li>ngHref</li>
                     <li>ngRepeat</li>
                 </ul>
                 <aside class="notes">
                     <h3>Directives</h3>
                     <ul>
-                        <li>Should be self enclosed - Preferably no communication in and no communication out</li>
-                        <li>jQuery - If there was a place for jQuery in Angular it is here. This is the best place for
-                            any form of DOM manipulation.
+                        <li>Should be self enclosed and should have as little communication in or out as possible</li>
+                        <li>jQuery - If there was a place for jQuery in AngularJS, it is here. This is the best place for
+                            any form of DOM manipulation. Not in the controller
                         </li>
-                        <li>Directives should be in full control of its own creation and destruction.</li>
+                        <li>Directives should be in full control of its own instantiation and destruction.</li>
                     </ul>
-                    <p>Directives can be used to modify the DOM, inputs, outputs and much more.</p>
+                    <p>Don't view your directive as a fine place to put repetitive HTML, instead view it as a way to teach
+                        HTML new tricks</p>
                 </aside>
             </section>
             <section>
@@ -135,12 +118,21 @@ angular.module('testApp', []).directive('pagination', [function () {
                 </code></pre>
                 <aside class="notes">
                     <h2>Basic usage of a directive</h2>
+                    <p>I'd like to point out:</p>
                     <ul>
-                        <li>the angular.directive function to make the directive</li>
-                        <li>Restrict set if the directive is an Attribute, Element, Class or Comment</li>
-                        <li>in the directive you can create a child-scope to better encapsulate data</li>
-                        <li>Template or templateUrl to direct the DOM</li>
-                        <li>Link is the main function that is called to instantiate the new object into memory. It is where you place any events, watchers and manipulation algorithms</li>
+                        <li>angular.directive -- registers the directive</li>
+                        <li>Restrict -- limits where angular looks for this directive. i.e. Attribute, Element, Class, Comment</li>
+                        <li>Scope -- create a child-scope to better encapsulate data</li>
+                        <li>Template or templateUrl -- base for the dome before any manipulation</li>
+                        <li>Link --
+                            <ul>
+                                <li>the main function</li>
+                                <li>called to instantiate the new object</li>
+                                <li>after the DOM is compiled</li>
+                                <li>Where you place any events or watchers</li>
+                                <li>Manipulation algorithms</li>
+                            </ul>
+                        </li>
                     </ul>
                 </aside>
             </section>
@@ -240,6 +232,17 @@ angular.module('jQueryUI', []).directive('rangeSlider', [function() {
     };
 }]);
                 </code></pre>
+                <aside class="notes">
+                    <p>This is my first pass at a jQuery UI range slider.</p>
+                    <p>A Few Problems:
+                        <ul>
+                            <li>Inefficient</li>
+                            <li>Un-needed child scope</li>
+                            <li>Bounce back</li>
+                        </ul>
+                        Would work fine if you only wanted to use a few of them on a page and don't care about the Inefficiencies.
+                    </p>
+                </aside>
             </section>
         </section>
         <section>
@@ -334,13 +337,24 @@ scope.$watch('ngModelHigh', externalChange);
                 </code></pre>
                 <aside class="notes">
                     <h3>Watchers and Bouncing</h3>
+                    <p>Ok, here is where we run into problems</p>
+                    <p>Top</p>
                     <ul>
-                        <li>The slider provides a nice way to update the the model</li>
-                        <li>External Changes won't be reflected in the slider unless we watch for them</li>
-                        <li>The Watcher is set to change the Slider</li>
-                        <li>2 Way updating -> slider>>model and model>>slider</li>
+                        <li>Inside the slider >> "Slide" function</li>
+                        <li>Sliding triggers a function to update my model</li>
+                        <li>I also trigger the exposed "Slide" function</li>
                     </ul>
-                    <br/>
+                    <p>Bottom</p>
+                    <ul>
+                        <li>External Changes wont apply without watchers</li>
+                        <li>When they occur, I update accordingly</li>
+                    </ul>
+                    <p>This creates 2 way binding.</p>
+                    <ul>
+                        <li>Slider >> Model</li>
+                        <li>Model >> Slider</li>
+                    </ul>
+
                     <h3>Problems</h3>
                     <h5>Slider>>Model</h5>
                     <ul>
@@ -366,21 +380,19 @@ scope.$watch('ngModelHigh', externalChange);
                 <h2>Using ng-Model-Controller</h2>
                 <br/>
                 <ul>
-                    <li class="fragment">require: "ngModel"</li>
-                    <li class="fragment">include ngModel in link</li>
                     <li class="fragment">functions for 2-directional updating</li>
                     <li class="fragment">Parsers and Formatters</li>
                     <li class="fragment">$pristine, $error, and other form validations</li>
+                    <li class="fragment">Cannot use additional sub-scope</li>
                 </ul>
                 <aside class="notes">
                     <ul>
-                        <li>To start add a require to make sure you get a model to control</li>
-                        <li>add the ngModel to the linking function so ou have something to bind to</li>
                         <li>ngModel gives you functions to control both directions of updates: i.e. model>>view/slider
                             and slider/view>>model
                         </li>
-                        <li>Allows for a stack in both direction, formatters and parsers</li>
-                        <li>Allows for settings like Error, Pristine, Required, Valid, Etc.</li>
+                        <li>Allows for a stack change functions in both directions: $formatters and $parsers</li>
+                        <li>Allows for control over Error, Pristine, Required, Valid, Etc.</li>
+                        <li>No sub-scope -- Might be seen as a downside, but help in memory and I quite like it after I got used to it.</li>
                     </ul>
                 </aside>
             </section>
@@ -464,6 +476,11 @@ angular.module('jQueryUI', []).directive('rangeSlider', [function() {
     };
 }]);
                 </code></pre>
+                <aside class="notes">
+                    <h3>New version</h3>
+                    This is the new version of this directive. It utilizes the basics of ngModelController. <br/>
+                    77 lines vs 91 Lines for those that care
+                </aside>
             </section>
         </section>
         <section>
@@ -493,10 +510,8 @@ angular.module('jQueryUI', []).directive('rangeSlider', [function() {
                 <aside class="notes">
                     <h3>Including the controller</h3>
                     <ul>
-                        <li>require: "ngModel" throws error if no ngModel</li>
-                        <li>add 4th argument to linking function to give yourself an object for controlling the
-                            ngModelController
-                        </li>
+                        <li>require: "ngModel" -- This will add ngModel to the list of provided controllers</li>
+                        <li>Add ngModel to the linking function.</li>
                         <li>Now you can start adding functions and checking data</li>
                         <li>I saw this if statement somewhere and liked it. I find that it helps to make dead sure I have all requirements</li>
                     </ul>
@@ -532,36 +547,42 @@ ngModel.$render = function(){
         </section>
         <section>
             <section>
-                <h2>Formatters and Parsers</h2>
+                <h2>Parsers and Formatters</h2>
                 <p>Modify and/or control the data comming in and going out of the ngModel</p>
+            </section>
+            <section>
+                <div class="column two">
+                    <h3>Parsers</h3>
+                    <ul>
+                        <li class="fragment">"Displayable" >> "Data"</li>
+                        <li class="fragment">Call $setViewValue(val)</li>
+                        <li class="fragment">Saves new $viewValue</li>
+                        <li class="fragment">Input[n] = Output[n+1]</li>
+                        <li class="fragment">Check correctness of data</li>
+                        <li class="fragment">Outputs in $modelValue</li>
+                    </ul>
+                </div>
+                <img class="logo column two" style="max-height: 650px; width: auto" src="images/viewToModel.png"/>
+                <aside class="notes">
+
+                </aside>
             </section>
             <section>
                 <img class="logo column two" style="max-height: 650px; width: auto" src="images/modelToView.png"/>
                 <div class="column two">
                     <h3>Formatters</h3>
                     <ul>
-                        <li class="fragment">Triggered by $modelValue change</li>
-                        <li class="fragment">Check correctness of data</li>
-                        <li class="fragment">Convert "Data" to "Displayable"</li>
+                        <li class="fragment">"Data" >> "Displayable"</li>
+                        <li class="fragment">$modelValue changes</li>
                         <li class="fragment">Input[n] = Output[n-1]</li>
+                        <li class="fragment">Check correctness of data</li>
                         <li class="fragment">Finalizes with $render()</li>
                         <li class="fragment">$render is an interface</li>
                     </ul>
                 </div>
             </section>
             <section>
-                <div class="column two">
-                    <h3>Parsers</h3>
-                    <ul>
-                        <li class="fragment">Triggered by $setViewValue()</li>
-                        <li class="fragment">Convert "Displayable" to "Data"</li>
-                        <li class="fragment">Input[n] = Output[n+1]</li>
-                    </ul>
-                </div>
-                <img class="logo column two" style="max-height: 650px; width: auto" src="images/viewToModel.png"/>
-            </section>
-            <section>
-                <h3>Formatting Function</h3>
+                <h3>Example Formatting Function</h3>
                 <pre ng-non-bindable><code data-trim>
 var checkLowHigh = function(vals){
     if (typeof vals === 'undefined' || vals.length !== 2)
@@ -590,12 +611,215 @@ ngModel.$formatters.push(checkLowHigh);
         </section>
         <section>
             <section>
+                <h2>Recap</h2>
+                <ul>
+                    <li class="fragment">model.$viewValue = ''</li>
+                    <li class="fragment">model.$modelValue = 0</li>
+                    <li style="color: rgba(0,0,0,0)">&nbsp;</li>
+                    <li class="fragment">model.$parsers = []</li>
+                    <li class="fragment">model.$formatters = []</li>
+                    <li style="color: rgba(0,0,0,0)">&nbsp;</li>
+                    <li class="fragment">model.$setViewValue()</li>
+                    <li class="fragment">model.$render()</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li>view value is the value that the directive reads</li>
+                        <li>Model value holds the data that the rest of angular reads</li>
+                        <li></li>
+                        <li>parsers are for converting view >> model</li>
+                        <li>formatters are for converting model >> view</li>
+                        <li></li>
+                        <li>Set View Value starts the view >> model chain</li>
+                        <li>Render is an interface and ends the model >> view chain</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
                 <h2>Forms Functionality</h2>
                 <ul>
                     <li class="fragment">$valid / $invalid</li>
                     <li class="fragment">$pristine / $dirty</li>
                     <li class="fragment">$error</li>
+                    <li class="fragment">$isEmpty</li>
                 </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Angular Core Examples</h2>
+                <ul>
+                    <li>ngList</li>
+                    <li>ngChange</li>
+                    <li>required</li>
+                </ul>
+            </section>
+            <section>
+                <h2>ngList</h2>
+                <pre ng-non-bindable><code data-trim>
+var ngListDirective = function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attr, ctrl) {
+            var match = /\/(.*)\//.exec(attr.ngList),
+            separator = match && new RegExp(match[1])
+                            || attr.ngList || ',';
+
+            var parse = function(viewValue) {
+                // If the viewValue is invalid (say required
+                //   but empty) it will be `undefined`
+                if (isUndefined(viewValue)) return;
+
+                var list = [];
+
+                if (viewValue) {
+                    forEach(viewValue.split(separator), function(value) {
+                        if (value) list.push(trim(value));
+                    });
+                }
+
+                return list;
+            };
+
+            ctrl.$parsers.push(parse);
+            ctrl.$formatters.push(function(value) {
+                if (isArray(value)) {
+                    return value.join(', ');
+                }
+
+                return undefined;
+            });
+
+            // Override the standard $isEmpty because an empty
+            //      array means the input is empty.
+            ctrl.$isEmpty = function(value) {
+                return !value || !value.length;
+            };
+        }
+    };
+};
+                </code></pre>
+                <a href="https://github.com/angular/angular.js/blob/master/src/ng/directive/input.js#L1485" target="_blank">View in Github</a>
+                <aside class="notes">
+                    <h3>ng-List</h3>
+                    <p>From the angular source -- I recommend reading the source from time to time.</p>
+                    <ul>
+                        <li>Notice it requires ngModel and accesses throguh the controllers</li>
+                        <li>it creates a parser and a formatter
+                            <ul>
+                                <li>the parser is splitting and returning an array</li>
+                                <li>the formatter is joining and returning a string</li>
+                            </ul>
+                        </li>
+                        <li>no need for a $render() since it is using a standard text input and text inputs have a pre-set $render function.</li>
+                        <li>$isEmpty is used in the form validation; obvious how it is set here.</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>ng-Change</h2>
+                <pre ng-non-bindable><code data-trim>
+var ngChangeDirective = valueFn({
+    require: 'ngModel',
+    link: function(scope, element, attr, ctrl) {
+        ctrl.$viewChangeListeners.push(function() {
+            scope.$eval(attr.ngChange);
+        });
+    }
+});
+                </code></pre>
+                <a href="https://github.com/angular/angular.js/blob/master/src/ng/directive/input.js#L1393" target="_blank">View in Github</a>
+                <aside class="notes">
+                    <h3>ngChange</h3>
+                    <p>Also from the angular source.</p>
+                    <ul>
+                        <li>Short --- and I mean SHORT</li>
+                        <li>I hope you can all see why ngChange doesn't work without ngModel and ngModelController</li>
+                        <li>$viewChangeListeners is a set of listeners that fire just after setting the $modelValue IF modelValue changes.</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Personal Example</h2>
+                <p>ngDollar</p>
+            </section>
+            <section>
+                <h3>ng-Dollar</h3>
+                <pre ng-non-bindable><code data-trim>
+var ngDollarDirective = ['$timeout', function($timeout) {
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, elem, attrs, ngModel) {
+        var deci = '.',
+            comma = ',',
+            deciPlaces = 2,
+            curSign = '$',
+            keyTimeoutPromise,
+            addFormat = function(n) {
+                var sign = curSign,
+                c = isNaN(c = Math.abs(deciPlaces)) ? 2 : deciPlaces,
+                d = deci ? deci : ".",
+                t = comma ? comma : ",",
+                s = n < 0 ? "-" : "",
+                i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+                j = (j = i.length) > 3 ? j % 3 : 0;
+                return s + sign + (j ? i.substr(0, j) + t : "")
+                    + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t)
+                    + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+            },
+            removeFormat = function(n) {
+                return parseFloat(n.replace(/[^0-9\.]/gi, '')) || 0;
+            },
+            refreshElem = function() {
+                ngModel.$setViewValue(elem.val());
+                elem.val(addFormat(removeFormat(elem.val())));
+            };
+
+        ngModel.$parsers.push(removeFormat);
+        ngModel.$formatters.push(addFormat);
+
+        elem.bind('keyup blur', function(e) {
+            if (keyTimeoutPromise) {
+                $timeout.cancel(keyTimeoutPromise);
+                keyTimeoutPromise = null;
+            }
+
+            var commit = (e.type === 'blur'
+                    || (e.type === 'keyup' && e.keyCode === 13));
+
+            if (commit) {
+                refreshElem();
+            } else {
+                keyTimeoutPromise = $timeout(refreshElem, 1200);
+            }
+        });
+
+        //ngModel.$render = function(){
+        //    elem.val(ngModel.$viewValue);
+        //};
+    }
+  };
+}];
+                </code></pre>
+                <p>Code included in js/iShowUI.js</p>
+                <aside class="notes">
+                    <h3>ngDollar</h3>
+                    <p>This was intended to be an input that would always be formatted as a currency but would hold a number in the model.</p>
+                    <ul>
+                        <li>Require: ngModel</li>
+                        <li>Include in Linking function</li>
+                        <li>Holds a timeout promise to prevent formatting while user is typing</li>
+                        <li>Parser to convert from string to number</li>
+                        <li>Formatter to convert from number to string</li>
+                        <li>set up to auto formate any strings entered without formatting</li>
+                        <li>Found I didn't need a $render() function since text fields have one already.</li>
+                    </ul>
+                </aside>
             </section>
         </section>
         <section>
